@@ -359,8 +359,6 @@ Essa abordagem resolve o relacionamento **N:M** entre **Alunos** e **Disciplinas
 - **Organização e Flexibilidade**: A entidade associativa permite modelar relacionamentos complexos com flexibilidade, adicionando atributos que descrevem o relacionamento de forma mais completa.
 - **Integridade e Normalização**: Ao separar o relacionamento em duas partes (N:M para 1:N), a integridade dos dados é preservada e o banco de dados se mantém normalizado, evitando duplicação de dados e redundâncias.
 
----
-
 ### **Cardinalidades**: 
   - Definem como as entidades participam dos relacionamentos:
     - **1:1**: Uma entidade A está relacionada a no máximo uma entidade B.
@@ -373,4 +371,3 @@ Essa abordagem resolve o relacionamento **N:M** entre **Alunos** e **Disciplinas
 - **Especialização e Generalização**: 
   - **Especialização**: Detalha uma entidade genérica em entidades mais específicas (ex.: funcionário pode se especializar em gerente ou técnico).
   - **Generalização**: Agrupa várias entidades específicas em uma entidade genérica (ex.: carro e moto podem ser generalizados como veículo).
-
