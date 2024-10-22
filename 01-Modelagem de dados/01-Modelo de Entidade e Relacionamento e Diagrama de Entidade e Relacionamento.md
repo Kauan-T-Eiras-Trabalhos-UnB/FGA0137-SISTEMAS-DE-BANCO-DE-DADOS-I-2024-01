@@ -973,8 +973,6 @@ Além dos relacionamentos binários (entre duas entidades), existem outros tipos
 - **Documentação:**
   - Mantenha uma documentação detalhada do modelo para facilitar a compreensão e manutenção.
 
----
-
 #### **Exemplos Adicionais**
 
 1. **Relacionamento Unário - Produto e Subproduto:**
@@ -1182,7 +1180,86 @@ Queremos relacionar que o **Professor** ensina uma **Disciplina** em um **Curso*
 
 ### **Entidades Associativas**
 
-Em Breve
+  As **Entidades Associativas** quando um **relacionamento precisa se relacionar com outro relacionamento**. Nesse caso, o relacionamento é elevado ao status de entidade para que possa:
+
+  - **Armazenar atributos próprios:** Quando o relacionamento em si possui informações adicionais que precisam ser registradas.
+  - **Participar de outros relacionamentos:** Quando o relacionamento precisa se conectar com outras entidades ou relacionamentos no modelo.
+  - **Representar um conceito importante:** Quando o relacionamento é significativo no domínio do problema e precisa ser tratado como uma entidade independente.
+
+  Isso permite uma modelagem mais rica e precisa dos dados, especialmente em situações complexas.
+
+- **Exemplos:**
+
+  1. **Atendimento** como Entidade Associativa entre **Paciente** e **Médico**, que se relaciona com **Hospital**:
+
+     - **Contexto:** Um paciente é atendido por um médico. O atendimento possui atributos como data, horário, diagnóstico, e precisa se relacionar com o hospital onde ocorreu.
+     - **Como é modelado:**
+       - **Entidades Principais:** `Paciente` e `Médico`.
+       - **Relacionamento Original:** `AtendidoPor`.
+       - **Entidade Associativa:** `Atendimento`, criada a partir do relacionamento `AtendidoPor`, com atributos próprios.
+       - **Relacionamento Adicional:** `Atendimento` se relaciona com `Hospital`.
+
+     ![Exemplo de Entidade Associativa - Atendimento](../assets/atendimento-entidade-associativa.png)
+
+  2. **Transação** como Entidade Associativa entre **Conta Bancária** e **Operação**, que se relaciona com **Funcionário**:
+
+     - **Contexto:** Uma conta bancária realiza operações financeiras (depósito, saque, transferência). Cada transação possui atributos como valor, data, e precisa se relacionar com o funcionário que a autorizou.
+     - **Como é modelado:**
+       - **Entidades Principais:** `Conta Bancária` e `Operação`.
+       - **Relacionamento Original:** `Realiza`.
+       - **Entidade Associativa:** `Transação`, com atributos como `valor`, `data`.
+       - **Relacionamento Adicional:** `Transação` se relaciona com `Funcionário`.
+
+  3. **Contrato** como Entidade Associativa entre **Empresa** e **Fornecedor**, que se relaciona com **Produto**:
+
+     - **Contexto:** Uma empresa firma contratos com fornecedores. O contrato possui atributos como valor total, prazo, e precisa se relacionar com os produtos fornecidos.
+     - **Como é modelado:**
+       - **Entidades Principais:** `Empresa` e `Fornecedor`.
+       - **Relacionamento Original:** `Firma`.
+       - **Entidade Associativa:** `Contrato`, com atributos como `valorTotal`, `prazo`.
+       - **Relacionamento Adicional:** `Contrato` se relaciona com `Produto`.
+
+  4. **Reserva** como Entidade Associativa entre **Cliente** e **Voo**, que se relaciona com **Pagamento**:
+
+     - **Contexto:** Um cliente faz reservas em voos. A reserva possui atributos como número de assento, classe, e precisa se relacionar com o pagamento efetuado.
+     - **Como é modelado:**
+       - **Entidades Principais:** `Cliente` e `Voo`.
+       - **Relacionamento Original:** `Reserva`.
+       - **Entidade Associativa:** `Reserva`, com atributos como `assento`, `classe`.
+       - **Relacionamento Adicional:** `Reserva` se relaciona com `Pagamento`.
+
+  5. **Pedido** como Entidade Associativa entre **Cliente** e **Vendedor**, que se relaciona com **Produto** e **Entrega**:
+
+     - **Contexto:** Um cliente faz um pedido a um vendedor. O pedido possui atributos como data, valor total, e precisa se relacionar com os produtos vendidos e a entrega.
+     - **Como é modelado:**
+       - **Entidades Principais:** `Cliente` e `Vendedor`.
+       - **Relacionamento Original:** `FazPedido`.
+       - **Entidade Associativa:** `Pedido`, com atributos como `data`, `valorTotal`.
+       - **Relacionamentos Adicionais:** `Pedido` se relaciona com `Produto` e `Entrega`.
+
+- **Dicas de Boas Práticas:**
+  
+  - **Relacionamentos entre Relacionamentos:**
+    - Quando um relacionamento precisa se relacionar com outra entidade ou relacionamento, utilize uma entidade associativa para permitir essa conexão.
+  
+  - **Clareza na Modelagem:**
+    - Nomeie a entidade associativa de forma que reflita claramente seu propósito no modelo.
+    - Mantenha a consistência na representação gráfica para facilitar a compreensão.
+
+- **Representação Visual no DER:**
+
+  - **Entidade Associativa:**
+    - Representada por um **retângulo**, como outras entidades.
+    - Conectada às entidades originais através de relacionamentos.
+  
+  - **Relacionamentos Adicionais:**
+    - A entidade associativa pode participar de novos relacionamentos com outras entidades ou até mesmo com outros relacionamentos transformados em entidades.
+  
+  - **Exemplo Genérico:**
+
+    ![Representação Visual no DER](../assets/atendimento-entidade-associativa.png)
+
+---
 
 ### **Especialização e Generalização**
 
@@ -1208,8 +1285,6 @@ No modelo de banco de dados, **especialização** e **generalização** são té
    - **Como Funciona:**
      - **Cachorro** e **Gato** se tornam entidades que herdam de **Animal Doméstico**.
   
-  ![Exemplo de Generalização - Animais Domésticos](../assets/generalizacao-animais.png)
-
 2. **Veículos: Carro e Bicicleta**
 
    - **Entidades Específicas:**
@@ -1234,25 +1309,9 @@ No modelo de banco de dados, **especialização** e **generalização** são té
    - **Como Funciona:**
      - **Professor** e **Administrador** herdam de **Funcionário**.
 
-##### **Como Representar no Diagrama (DER):**
-
-- A generalização é representada por um **triângulo** que conecta as entidades específicas à entidade geral.
-- O triângulo aponta para a entidade geral (a categoria mais ampla).
-
-**Exemplo Simplificado:**
-
-```
-            [Veículo]
-              /    \
-             /      \
-        [Carro]   [Bicicleta]
-```
-
----
-
 #### **O que é Especialização?**
 
-**Especialização** é o processo inverso da generalização. Aqui, você começa com uma entidade geral e a divide em entidades mais específicas, adicionando detalhes exclusivos a cada uma. Pense nisso como descer um nível para detalhar categorias específicas dentro de uma categoria ampla.
+**Especialização** é o tudo aquilo que não tem valor compartilhado com outras entidades. São as caracteristicas únicas de um subtipo.
 
 - **É como pegar uma categoria grande e dividi-la em partes menores com características únicas.**
 
@@ -1290,44 +1349,39 @@ No modelo de banco de dados, **especialização** e **generalização** são té
 
 ##### **Como Representar no Diagrama (DER):**
 
-- A especialização também é representada por um **triângulo**, mas agora ele conecta a entidade geral às entidades específicas.
-- O triângulo aponta para as entidades específicas (as categorias detalhadas).
+- A generalização é representada por um **triângulo** que conecta as entidades específicas à entidade geral.
+- O triângulo aponta para a entidade geral (a categoria mais ampla).
 
-**Exemplo Simplificado:**
+  ![Exemplo de Generalização - Animais Domésticos](../assets/generalizacao-animais.png)
 
-```
-            [Pessoa]
-              /    \
-             /      \
-        [Aluno]   [Professor]
-```
 
----
+#### **Tipos de Generalização e Especialização**
+Existem tipos diferentes de generalização e especialização que podem ser aplicados dependendo do contexto do modelo de dados. Elas ajudam a manter a consistência dos dados e evitar repetições desnecessárias,  garantindo que as entidades sejam organizadas de forma lógica e eficiente.
 
-#### **Como Funcionam Especialização e Generalização no Banco de Dados**
+1. **Generalização Total e Parcial**
 
-Em ambos os casos, estamos criando uma relação de **herança** entre entidades. Isso permite que as entidades específicas compartilhem atributos da entidade geral e tenham seus próprios atributos exclusivos.
+   - **Generalização Total**: Todos os subtipos são obrigados a participar da generalização.
+   - **Generalização Parcial**: Alguns subtipos podem não participar da generalização.
+  
+2. **Especialização Exclusiva e Não Exclusiva**
+  
+   - **Especialização Exclusiva**: Um subtipo só pode ser de um tipo específico.
+   - **Especialização Não Exclusiva**: Um subtipo pode ser de mais de um tipo.
 
-**Principais Conceitos:**
+Sabendo disso, há combinações de generalização e especialização que podem ser representadas no DER com um parenteses com "(generalização, especialização)". Por exemplo:
+- **Total Exclusiva -> (T, E):** Todos os subtipos são obrigados a participar da generalização e um subtipo só pode ser de um tipo específico, não podendo ser de mais de um tipo.
+  Exemplo: **Animal** sendo generalizada em **Cachorro** e **Gato**. Um Animal não pode ser um Cachorro e um Gato ao mesmo tempo.
 
-- **Herança de Atributos:**
-  - As entidades específicas herdam atributos e relacionamentos da entidade geral.
-- **Tipos de Especialização/Generalização:**
-  - **Total**: Todos os registros da entidade geral pertencem a alguma entidade específica.
-    - Exemplo: Todo **Funcionário** é ou **Professor** ou **Administrador**.
-  - **Parcial**: Alguns registros da entidade geral não pertencem a nenhuma entidade específica.
-    - Exemplo: Uma **Pessoa** pode ser um **Aluno**, um **Professor** ou nenhum dos dois.
-  - **Exclusiva**: Um registro da entidade geral pertence a apenas uma das entidades específicas.
-    - Exemplo: Uma **Conta Bancária** é **Corrente** ou **Poupança**, mas não ambos.
-  - **Não Exclusiva (Sobreposta)**: Um registro da entidade geral pode pertencer a várias entidades específicas.
-    - Exemplo: Um **Funcionário** pode ser **Professor** e **Administrador** ao mesmo tempo.
+- **Parcial Exclusiva -> (P, E):** Alguns subtipos podem não participar da generalização e um subtipo só pode ser de um tipo específico, não podendo ser de mais de um tipo.
+  Exemplo: **Veículo** sendo generalizada em **Carro** e **Bicicleta**. Alguns Veículos podem ser Carros ou Bicicletas, mas não ambos. Além disso, como a Generalização é Parcial, pode ter veículos que não são nem Carros nem Bicicletas, algo que não foi definido ainda.
 
----
+- **Total Não Exclusiva -> (T, NE):** Todos os subtipos são obrigados a participar da generalização e um subtipo pode ser de mais de um tipo.
+  Exemplo: **Pessoa** sendo generalizada em **Aluno** e **Professor**. Uma Pessoa deve ser um Aluno ou um Professor nesse exemplo. Ela não pode existir se não for um dos dois. Porém, como é uma especialização não exclusiva, uma Pessoa pode ser um Aluno e um Professor ao mesmo tempo.
 
-#### **Como Transformar em Tabelas no Banco de Dados**
+- **Parcial Não Exclusiva -> (P, NE):** Alguns subtipos podem não participar da generalização e um subtipo pode ser de mais de um tipo.
+  Exemplo: **Conta Bancária** possui atributos gerais. O usuário pode ter somente essa **Conta Bancária**, ou pode ter uma **Conta Corrente**, **Conta Poupança**, **Conta Salário**, outros tipos de conta, tudo dentro da mesma **Conta Bancária**.
 
-Existem várias maneiras de implementar especialização e generalização no banco de dados. Vamos ver as três principais abordagens com exemplos simples.
-
+#### **Como Transformar em Tabelas**
 ##### **1. Tabela Única para Todas as Entidades (Single Table Inheritance)**
 
 - **Descrição:**
@@ -1414,132 +1468,80 @@ Existem várias maneiras de implementar especialização e generalização no ba
     - `numero_registro`
     - `disciplina`
 
----
+#### **Qual a melhor opção para cada tipo de Generalização e Especialização?**
 
-#### **Exemplo Completo Passo a Passo**
+##### 1. **Total e Exclusiva (T,E)**
+   - **Descrição**: Todos os subtipos participam da generalização, e cada subtipo pode pertencer a apenas um tipo.
+   - **Melhor abordagem**: **Class Table Inheritance (Tabelas Separadas com Herança)**
+     - **Por quê?**: Como todos os subtipos são obrigatórios e mutuamente exclusivos, é vantajoso ter uma tabela separada para cada subtipo, ligada à tabela da entidade geral. Isso evita campos nulos, mantém as entidades específicas separadas e facilita a integridade referencial.
+     - **Exemplo**:
+       - **Tabela Geral:** `Animal`
+         - `animal_id` (PK)
+         - `nome`
+         - `idade`
+       - **Tabela Específica:** `Cachorro`
+         - `animal_id` (PK, FK para `Animal`)
+         - `raça`
+         - `tamanho`
+       - **Tabela Específica:** `Gato`
+         - `animal_id` (PK, FK para `Animal`)
+         - `pelagem`
+         - `independência`
 
-Vamos usar o exemplo da **Conta Bancária**, especializada em **Conta Corrente** e **Conta Poupança**, utilizando a segunda abordagem (tabelas separadas com herança).
+##### 2. **Total e Não Exclusiva (T,NE)**
+   - **Descrição**: Todos os subtipos participam da generalização, mas um subtipo pode pertencer a mais de uma categoria.
+   - **Melhor abordagem**: **Single Table Inheritance (Tabela Única para Todas as Entidades)**
+     - **Por quê?**: Como todos os subtipos são obrigatórios, mas um registro pode pertencer a múltiplos subtipos, uma tabela única com uma coluna para indicar o tipo (ou tipos) é a abordagem mais eficiente. Isso evita a necessidade de junções complexas e permite uma consulta direta.
+     - **Exemplo**:
+       - **Tabela:** `Pessoa`
+         - `pessoa_id` (PK)
+         - `nome`
+         - `endereço`
+         - `telefone`
+         - `tipo_pessoa` (pode ser "Aluno", "Professor" ou ambos)
+         - Atributos específicos de `Aluno` e `Professor` nas colunas correspondentes, como `numero_matricula` e `disciplina`.
 
-**Passo 1: Definir a Entidade Geral**
+##### 3. **Parcial e Exclusiva (P,E)**
+   - **Descrição**: Nem todos os subtipos precisam participar da generalização, e cada subtipo pode pertencer a apenas uma categoria.
+   - **Melhor abordagem**: **Concrete Table Inheritance (Tabelas Separadas sem Herança)**
+     - **Por quê?**: Como nem todos os subtipos participam e são exclusivos, criar tabelas separadas sem herança pode ser mais direto. Isso evita a necessidade de uma tabela geral e simplifica o design, já que as entidades não compartilhadas não precisam de uma tabela comum.
+     - **Exemplo**:
+       - **Tabela:** `Conta Corrente`
+         - `conta_id` (PK)
+         - `numero_conta`
+         - `saldo`
+         - `limite_cheque_especial`
+       - **Tabela:** `Conta Poupança`
+         - `conta_id` (PK)
+         - `numero_conta`
+         - `saldo`
+         - `taxa_rendimento`
+     - **Observação**: As tabelas de `Conta Corrente` e `Conta Poupança` podem existir separadamente, sem a necessidade de uma tabela geral de `Conta Bancária`.
 
-- **Entidade Geral:** `ContaBancaria`
-  - **Atributos:**
-    - `conta_id` (PK)
-    - `agencia`
-    - `numero`
-    - `saldo`
+##### 4. **Parcial e Não Exclusiva (P,NE)**
+   - **Descrição**: Nem todos os subtipos participam da generalização, e um subtipo pode pertencer a mais de uma categoria.
+   - **Melhor abordagem**: **Class Table Inheritance (Tabelas Separadas com Herança)**
+     - **Por quê?**: Aqui, os subtipos podem não participar da generalização, mas quando o fazem, podem pertencer a várias categorias. O uso de tabelas separadas permite modelar essa flexibilidade sem redundâncias excessivas. Relacionamentos muitos-para-muitos podem ser geridos com tabelas de junção.
+     - **Exemplo**:
+       - **Tabela Geral:** `Produto`
+         - `produto_id` (PK)
+         - `nome`
+         - `preço`
+       - **Tabela Específica:** `Produto Digital`
+         - `produto_id` (PK, FK para `Produto`)
+         - `formato`
+         - `tamanho_MB`
+       - **Tabela Específica:** `Produto Físico`
+         - `produto_id` (PK, FK para `Produto`)
+         - `peso`
+         - `dimensões`
+       - Uma mesma instância de `Produto` pode estar presente nas duas tabelas específicas ao mesmo tempo, caso seja necessário.
 
-**Passo 2: Definir as Entidades Específicas**
+##### Resumo das Melhores Abordagens:
 
-- **Entidade Específica:** `ContaCorrente`
-  - **Atributos:**
-    - `conta_id` (PK, FK para `ContaBancaria`)
-    - `limite_cheque_especial`
-
-- **Entidade Específica:** `ContaPoupanca`
-  - **Atributos:**
-    - `conta_id` (PK, FK para `ContaBancaria`)
-    - `taxa_rendimento`
-
-**Passo 3: Criar as Tabelas no Banco de Dados**
-
-- **Tabela Geral:** `ContaBancaria`
-  - `conta_id` (PK)
-  - `agencia`
-  - `numero`
-  - `saldo`
-
-- **Tabela Específica:** `ContaCorrente`
-  - `conta_id` (PK, FK para `ContaBancaria`)
-  - `limite_cheque_especial`
-
-- **Tabela Específica:** `ContaPoupanca`
-  - `conta_id` (PK, FK para `ContaBancaria`)
-  - `taxa_rendimento`
-
-**Como Funciona:**
-
-- Cada conta bancária está registrada na tabela `ContaBancaria`.
-- Se a conta for corrente, haverá um registro correspondente na tabela `ContaCorrente`.
-- Se a conta for poupança, haverá um registro na tabela `ContaPoupanca`.
-
----
-
-#### **Dicas Simples para Aplicar Especialização e Generalização**
-
-- **Identifique Atributos Comuns:**
-  - Se várias entidades têm atributos iguais, considere criar uma entidade geral para agrupá-los.
-- **Use Nomes Claros:**
-  - Nomeie as entidades de forma que fique claro o relacionamento entre elas.
-- **Evite Duplicação de Dados:**
-  - A generalização ajuda a evitar repetir os mesmos atributos em várias entidades.
-- **Escolha a Melhor Abordagem:**
-  - Avalie qual método de implementação se adequa melhor ao seu projeto.
-- **Documente Seu Modelo:**
-  - Desenhe diagramas e anote os relacionamentos para facilitar o entendimento.
-
----
-
-#### **Mais Exemplos Práticos**
-
-1. **Veículos Especializados em Carro, Moto e Caminhão**
-
-   - **Entidade Geral:**
-     - **Veículo**: Placa, marca, modelo.
-   - **Entidades Específicas:**
-     - **Carro**: Número de portas, tipo de combustível.
-     - **Moto**: Cilindradas, tipo de guidão.
-     - **Caminhão**: Capacidade de carga, número de eixos.
-
-2. **Dispositivos Eletrônicos Especializados em Computador e Smartphone**
-
-   - **Entidade Geral:**
-     - **DispositivoEletronico**: Marca, modelo, ano de fabricação.
-   - **Entidades Específicas:**
-     - **Computador**: Tipo de processador, memória RAM.
-     - **Smartphone**: Tamanho da tela, capacidade da bateria.
-
-3. **Evento Especializado em Concerto e Conferência**
-
-   - **Entidade Geral:**
-     - **Evento**: Data, local, organizador.
-   - **Entidades Específicas:**
-     - **Concerto**: Artista principal, gênero musical.
-     - **Conferência**: Palestrantes, tema principal.
-
----
-
-#### **Como Essas Entidades Viram Tabelas no Banco de Dados**
-
-Vamos pegar o exemplo de **Veículo**, **Carro**, **Moto** e **Caminhão**, usando a segunda abordagem (tabelas separadas com herança).
-
-**Tabelas:**
-
-- **Veículo**
-  - `veiculo_id` (PK)
-  - `placa`
-  - `marca`
-  - `modelo`
-
-- **Carro**
-  - `veiculo_id` (PK, FK para `Veículo`)
-  - `numero_portas`
-  - `tipo_combustivel`
-
-- **Moto**
-  - `veiculo_id` (PK, FK para `Veículo`)
-  - `cilindradas`
-  - `tipo_guidao`
-
-- **Caminhão**
-  - `veiculo_id` (PK, FK para `Veículo`)
-  - `capacidade_carga`
-  - `numero_eixos`
-
-**Funcionamento:**
-
-- Todos os veículos estão na tabela `Veículo`.
-- As características específicas de cada tipo de veículo estão nas tabelas correspondentes.
-- A chave primária é compartilhada entre a tabela geral e as tabelas específicas.
-
----
+| **Tipo**  | **Abordagem Recomendada**                         |
+|-----------|---------------------------------------------------|
+| **(T,E)** | Class Table Inheritance (Tabelas Separadas com Herança) |
+| **(T,NE)**| Single Table Inheritance (Tabela Única)           |
+| **(P,E)** | Concrete Table Inheritance (Tabelas Separadas sem Herança) |
+| **(P,NE)**| Class Table Inheritance (Tabelas Separadas com Herança) |
