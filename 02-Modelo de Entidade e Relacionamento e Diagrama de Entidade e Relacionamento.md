@@ -1,6 +1,6 @@
 # Modelo Entidade-Relacionamento (MER) e Diagrama Entidade-Relacionamento (DER)
 
-O **Modelo Entidade-Relacionamento (MER)** é uma técnica de modelagem conceitual que auxilia na representação da estrutura de um banco de dados de forma intuitiva. Ele descreve como os dados se relacionam entre si no contexto do seu projeto, facilitando o planejamento das tabelas que irão armazenar essas informações. No MER, o foco é entender e representar os requisitos de informação sem se preocupar com detalhes de implementação, como tipos de dados específicos ou estruturas físicas de armazenamento.
+O **Modelo Entidade-Relacionamento (MER)** é uma técnica de modelagem conceitual que representa a estrutura de um banco de dados de forma intuitiva. Ele descreve como os dados se relacionam entre si no contexto do seu projeto. No MER, o foco é desenhar de forma intuitiva, sem se preocupar com detalhes de implementação.
 
 ## Diagrama Entidade-Relacionamento (DER)
 
@@ -12,7 +12,7 @@ O **Diagrama Entidade-Relacionamento (DER)** é a representação gráfica do ME
 
 ### **Entidades**
 
-As **entidades** são os objetos principais que serão armazenados no banco de dados. Elas representam um conjunto, coleção, conceito ou objeto do mundo real que desejamos guardar informações. Por exemplo, uma entidade chamada **Cliente** se tornará uma tabela **Cliente**, onde cada linha da tabela apresenta o registro de um cliente específico, e os atributos (como nome, e-mail, CPF) serão as colunas dessa tabela.
+As **entidades** são os objetos principais que serão armazenados no banco de dados. Elas representam um conjunto, coleção, conceito ou objeto do mundo real que desejamos guardar informações. Por exemplo, uma entidade chamada **Cliente** se tornará uma tabela **Cliente**, onde cada linha da tabela apresenta o registro de um cliente específico, e os atributos (como nome, e-mail, CPF) serão as colunas dessa tabela. 
 
 #### **Exemplos de Entidades:**
 
@@ -25,48 +25,47 @@ As **entidades** são os objetos principais que serão armazenados no banco de d
 - **Nomeação:**
   - Use nomes no **singular** para entidades e atributos.
   - Utilize **letras maiúsculas** para entidades e **letras minúsculas** para atributos.
-  - Exemplo: "Cliente" em vez de "Clientes" ou "cliente"; "nome" em vez de "NOME" ou "nomes".
+  - Exemplo: **"Cliente"** ou **"CLIENTE"** em vez de "Clientes" ou "cliente"; "nome" em vez de "NOME" ou "nomes".
 
 - **Clareza e Simplicidade:**
-  - Escolha nomes significativos que reflitam claramente o que a entidade representa.
+  - Escolha nomes significativos que reflitam claramente o que a entidade representa e armazena.
   - Evite abreviações ou siglas que possam gerar confusão.
-  - Não coloque caracteres especiais ou espaços nos nomes.
 
 #### **Representação Visual no DER:**
 
 As entidades são representadas por **retângulos**, com o nome da entidade escrito dentro ou acima do retângulo.
 
-| ![Exemplo de Entidades](../assets/entidades-fortes.png) |
+| ![Exemplo de Entidades](./assets/entidades-fortes.png) |
 
 #### **Tipos de Entidades:**
 
 ##### **1. Entidades Fortes**
 
-- **Descrição:** São entidades que possuem existência independente, ou seja, não dependem de outras entidades para existir. Elas possuem uma **chave primária própria** que as identifica unicamente.
+- **Descrição:** São entidades que possuem existência independente, ou seja, não dependem de outras entidades para existir. Para uma entidade forte existir, obrigatóriamente ela terá uma **chave primária própria**, que identifica essa entidade unicamente.
 
 - **Exemplos:**
 
-  1. **Cliente**: Um cliente pode existir independentemente de outras entidades. Não importa se a loja tem produtos ou pedidos, ainda sim pode existir dados de clientes.
+  1. **Cliente**: Um cliente pode existir independentemente de outras entidades. Não importa se a loja tem produtos ou pedidos, ainda sim pode ser interessante para a empresa armazenar dados de possíveis clientes. O cliente é identificado por um **id_cliente** único, ou **cpf**.
   2. **Produto**: Um produto tem sua própria identidade e não depende de outras entidades. Não precisa de clientes ou qualquer outra entidade para existir um produto.
-  3. **Funcionário**: Um funcionário existe na empresa mesmo que não tenha clientes ou produtos associados.
+  3. **Funcionário**: Um funcionário existe na empresa mesmo que não tenha clientes ou produtos associados. O funcionário é identificado por um **id_funcionario**, um **cpf** ou **matricula**, que são únicos.
 
 - **Dicas de Boas Práticas:**
 
-  - **Pergunta-chave:** "Essa entidade pode existir sozinha, sem depender de outra?" Se a resposta for "sim", ela é uma entidade forte.
+  - **Pergunta-chave:** "Essa entidade pode existir sozinha, sem depender de outra?" Se a resposta for "sim", ela é uma entidade forte e deverá ter uma chave primária.
   - **Consistência:** Certifique-se de que a entidade possui uma chave primária única.
-  - **Simplicidade:** Evite entidades complexas que misturam múltiplos conceitos.
-  - **Reutilização:** Considere reutilizar entidades existentes em vez de criar novas.
+  - **Simplicidade:** Evite entidades complexas que misturam múltiplos conceitos, como "ClienteProdutoFuncionario".
+  - **Reutilização:** Considere reutilizar entidades existentes em vez de criar novas com dados semelhantes.
   - **Observação:** Na maioria dos casos, as entidades são fortes. Pode existir bancos com apenas entidades fortes.
 
 - **Representação Visual no DER:**
 
   Entidades fortes são representadas por **retângulos simples**.
 
-| ![Exemplo de Entidades Fortes](../assets/entidades-fortes.png) |
+| ![Exemplo de Entidades Fortes](./assets/entidades-fortes.png) |
 
 ##### **2. Entidades Fracas**
 
-- **Descrição:** São entidades que dependem de outra entidade (entidade forte) para existir. Elas não possuem uma chave primária própria suficiente para identificá-las unicamente no banco sem a chave da entidade forte.
+- **Descrição:** São entidades que dependem de outra entidade (entidade forte) para existir. Elas não possuem uma chave primária própria suficiente para identificá-las unicamente, precisam de uma chave estrangeira que as conecte a uma entidade forte.
 
 - **Exemplos:**
 
@@ -76,7 +75,7 @@ As entidades são representadas por **retângulos**, com o nome da entidade escr
 
 - **Dicas de Boas Práticas:**
 
-  - **Pergunta-chave:** "Essa entidade depende de outra para existir?" Se a resposta for "sim", ela é uma entidade fraca.
+  - **Pergunta-chave:** "Essa entidade depende de outra para existir?" Se a resposta for "sim", ela é uma entidade fraca, e não deve ter uma chave primária própria. Deve ter uma chave estrangeira que a conecte a uma entidade forte.
   - **Chave Parcial:** Utilize um identificador parcial combinado com a chave primária da entidade forte, como **id_disciplina** e **número**.
 
 - **Representação Visual no DER:**
@@ -93,7 +92,9 @@ As entidades são representadas por **retângulos**, com o nome da entidade escr
 
 ### **Atributos**
 
-Os **atributos** são as características ou propriedades que descrevem uma entidade. Eles correspondem às colunas das tabelas no banco de dados. Também podem ser vistos como itens pertencentes a um conjunto.
+Os **atributos** são as características ou propriedades que descrevem uma entidade. Eles correspondem às colunas das tabelas no banco de dados. Também podem ser vistos como itens pertencentes a um conjunto e existem vários tipos de atributos, como **simples**, **compostos**, **multivalorados** e **derivados**.
+
+![Tipos de Atributos](./assets/tipos-de-atributos.png)
 
 #### **Tipos de Atributos:**
 
@@ -116,7 +117,7 @@ Os **atributos** são as características ou propriedades que descrevem uma enti
 
   Representados por **elipses** conectadas à entidade.
 
-| ![Exemplo de Atributos Simples](../assets/atributos-simples.png) |
+| ![Exemplo de Atributos Simples](./assets/atributos-simples.png) |
 
 ##### **2. Atributos Compostos**
 
@@ -148,7 +149,7 @@ Os **atributos** são as características ou propriedades que descrevem uma enti
 
   Uma elipse principal conectada a subelipses.
 
-| ![Exemplo de Atributos Compostos](../assets/atributos-compostos.png) |
+| ![Exemplo de Atributos Compostos](./assets/atributos-compostos.png) |
 
 ##### **3. Atributos Multivalorados**
 
@@ -166,7 +167,7 @@ Os **atributos** são as características ou propriedades que descrevem uma enti
 
   Representados por **elipses com bordas duplas**.
 
-| ![Exemplo de Atributos Multivalorados](../assets/atributos-multivalorados.png) |
+| ![Exemplo de Atributos Multivalorados](./assets/atributos-multivalorados.png) |
 
 ##### **4. Atributos Derivados**
 
@@ -190,7 +191,7 @@ Os **atributos** são as características ou propriedades que descrevem uma enti
 
   Representados por **elipses com linha tracejada**.
 
-| ![Exemplo de Atributos Derivados](../assets/atributos-derivados.png) |
+| ![Exemplo de Atributos Derivados](./assets/atributos-derivados.png) |
 
 ---
 
@@ -222,7 +223,7 @@ As **chaves** são usadas para identificar unicamente registros em uma tabela e 
 
   Atributo **sublinhado**.
 
-| ![Exemplo de Chave Primária](../assets/chave-primaria.png) |
+| ![Exemplo de Chave Primária](./assets/chave-primaria.png) |
 
 ##### **2. Chave Estrangeira (Foreign Key)**
 
@@ -299,7 +300,7 @@ As **chaves** são usadas para identificar unicamente registros em uma tabela e 
 
   Atributos que compõem a chave são **sublinhados**.
 
-| ![Exemplo de Chave Composta](../assets/chave-composta.png) |
+| ![Exemplo de Chave Composta](./assets/chave-composta.png) |
 
 ##### **6. Chave Secundária (Secondary Key)**
 
@@ -355,12 +356,12 @@ Esses números (1:1, 1:N, N:M) representam as **cardinalidades** dos relacioname
 
 Repare que os relacionamentos conectam as entidades passando uma ideia clara, como no exemplo: "Cliente Faz Pedido".
 
-| ![Exemplo de Relacionamento](../assets/relacionamentos-binarios.png) |
+| ![Exemplo de Relacionamento](./assets/relacionamentos-binarios.png) |
 
 
 Os **relacionamentos** também podem ser vistos como **conjuntos**, onde cada conjunto é uma entidade e itens do conjunto A estão relacionados a itens do conjunto B. Por exemplo, o conjunto de **Clientes** está relacionado ao conjunto de **Pedidos**.
 
-![Exemplo de Relacionamento Conjunto](../assets/relacionamento_conjunto.png)
+![Exemplo de Relacionamento Conjunto](./assets/relacionamento_conjunto.png)
 
 #### **1. Relacionamento Um-para-Um (1:1)**
 
@@ -389,7 +390,7 @@ Os **relacionamentos** também podem ser vistos como **conjuntos**, onde cada co
 
   No Diagrama Entidade-Relacionamento (DER), um relacionamento um-para-um é representado por um losango conectado a duas entidades, com o número "1" próximo às linhas que ligam o relacionamento às entidades.
 
-    |![Exemplo de Relacionamento 1:1 - Pessoa:Identidade](../assets/relacionamento11_PessoaIdentidade.png)
+    |![Exemplo de Relacionamento 1:1 - Pessoa:Identidade](./assets/relacionamento11_PessoaIdentidade.png)
 
     >**OBSERVAÇÃO:** A seta utilizada no diagrama é apenas para indicar o sentido da frase. Não é uma regra de modelagem. É uma boa prática, pois facilita a leitura do diagrama. Carteira de Identidade **Possui** Pessoa não faz sentido. Por isso, a seta é usada para indicar a direção correta.
 
@@ -480,7 +481,7 @@ Os **relacionamentos** também podem ser vistos como **conjuntos**, onde cada co
 
   No DER, o relacionamento um-para-muitos é representado por um losango conectado às entidades, com "1" próximo à entidade do lado "um" e "N" ou "*" próximo à entidade do lado "muitos".
 
-![Exemplo de Relacionamento 1:N - Professor:Turma](../assets/relacionamentoN1_Turma.png)
+![Exemplo de Relacionamento 1:N - Professor:Turma](./assets/relacionamentoN1_Turma.png)
 
 - **Como Transformar em Tabelas:**
 
@@ -557,7 +558,7 @@ Os **relacionamentos** também podem ser vistos como **conjuntos**, onde cada co
 
   No DER, o relacionamento muitos-para-muitos é representado por um losango conectado às entidades, com "N" ou "*" próximo a ambas as entidades.
 
-![Exemplo de Relacionamento N:M - Aluno:Disciplina](../assets/relacionamentoNN_Matricula.png)
+![Exemplo de Relacionamento N:M - Aluno:Disciplina](./assets/relacionamentoNN_Matricula.png)
 
 - **Como Transformar em Tabelas:**
 
@@ -762,7 +763,7 @@ Além dos relacionamentos binários (entre duas entidades), existem outros tipos
 
   No Diagrama Entidade-Relacionamento (DER), o relacionamento unário é representado por um losango que conecta a entidade a si mesma.
 
-  ![Exemplo de Relacionamento Unário - Funcionário:Gerencia](../assets/relacionamentoUnario_FuncionarioGerencia.png)
+  ![Exemplo de Relacionamento Unário - Funcionário:Gerencia](./assets/relacionamentoUnario_FuncionarioGerencia.png)
 
   > **Nota:** A linha que volta para a entidade indica o relacionamento recursivo.
 
@@ -830,7 +831,7 @@ Além dos relacionamentos binários (entre duas entidades), existem outros tipos
 
   No DER, um relacionamento ternário é representado por um losango que conecta as três entidades envolvidas.
 
-  ![Exemplo de Relacionamento Ternário - Médico:Paciente:Medicamento](../assets/relacionamentoTernario_Prescricao.png)
+  ![Exemplo de Relacionamento Ternário - Médico:Paciente:Medicamento](./assets/relacionamentoTernario_Prescricao.png)
 
 ##### **Como Transformar em Tabelas:**
 
@@ -1054,7 +1055,7 @@ Para modelar isso, podemos usar a **agregação**.
 - **Alocação** então se relaciona com **Cliente**.
 - O diagrama reflete essa estrutura de forma clara.
 
-![Exemplo de Agregação](../assets/agregacao-exemplo.png)
+![Exemplo de Agregação](./assets/agregacao-exemplo.png)
 
 #### **Como Transformar em Tabelas**
 
@@ -1199,7 +1200,7 @@ Queremos relacionar que o **Professor** ensina uma **Disciplina** em um **Curso*
        - **Entidade Associativa:** `Atendimento`, criada a partir do relacionamento `AtendidoPor`, com atributos próprios.
        - **Relacionamento Adicional:** `Atendimento` se relaciona com `Hospital`.
 
-     ![Exemplo de Entidade Associativa - Atendimento](../assets/atendimento-entidade-associativa.png)
+     ![Exemplo de Entidade Associativa - Atendimento](./assets/atendimento-entidade-associativa.png)
 
   2. **Transação** como Entidade Associativa entre **Conta Bancária** e **Operação**, que se relaciona com **Funcionário**:
 
@@ -1257,7 +1258,7 @@ Queremos relacionar que o **Professor** ensina uma **Disciplina** em um **Curso*
   
   - **Exemplo Genérico:**
 
-    ![Representação Visual no DER](../assets/atendimento-entidade-associativa.png)
+    ![Representação Visual no DER](./assets/atendimento-entidade-associativa.png)
 
 ---
 
@@ -1352,7 +1353,7 @@ No modelo de banco de dados, **especialização** e **generalização** são té
 - A generalização é representada por um **triângulo** que conecta as entidades específicas à entidade geral.
 - O triângulo aponta para a entidade geral (a categoria mais ampla).
 
-  ![Exemplo de Generalização - Animais Domésticos](../assets/generalizacao-animais.png)
+  ![Exemplo de Generalização - Animais Domésticos](./assets/generalizacao-animais.png)
 
 
 #### **Tipos de Generalização e Especialização**

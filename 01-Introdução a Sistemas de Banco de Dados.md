@@ -128,4 +128,3 @@ PRABHU, S. and VENKATESAN, N. Data Mining and Warehousing. New Age International
 ### Complementar
 DATE, C. J. Introdução a Sistemas de Bancos de Dados, 8a. Ed., Campus, 2004.  
 KRISHNAN, K. The Morgan Kaufmann Series on Business Intelligence: Data Warehousing in the Age of Big Data. Morgan Kaufmann, 2013. [EBRARY]
-
